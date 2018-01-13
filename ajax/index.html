@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <ul id="ul1">
+
+        </ul>
+    </div>
+</body>
+</html>
+<script src="jquery-3.2.1.min.js"></script>
+<script>
+    window.onload=function (ev) {
+        var xhr = null;
+        try {
+            xhr = new XMLHttpRequest();
+        } catch (e) {
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+
+        xhr.open('get','newsList.php',true);
+        xhr.send();
+
+        xhr.onreadystatechange = function() {
+            if ( xhr.readyState == 4 ) {
+                if ( xhr.status == 200 ) {
+                    var data = JSON.parse( xhr.responseText );
+                    var oUl = document.getElementById('ul1');
+                    var html = '';
+                    for (var i=0; i<data.length; i++) {
+                        html += '<li><a href="">'+data[i].title+'</a> [<span>'+data[i].date+'</span>]</li>';
+                    }
+                    oUl.innerHTML = html;
+                } else {
+                    alert('出错了,Err：' + xhr.status);
+                }
+            }
+
+        }
+
+
+
+    }
+</script>

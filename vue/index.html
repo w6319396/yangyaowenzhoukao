@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul>li{list-style: none}
+        section{
+            height: 220px;
+            width: 800px;
+            border: 1px solid red;
+        }
+        aside{float: left;
+            width: 300px;
+        }
+        aside>div>ul>li>button{width: 250px}
+        section{float: left;
+                margin-left: 10px;}
+        .text{
+            height: 100px;
+            width: 780px;
+            border: 1px solid rgb(50,122,181);
+            margin: auto;
+        }
+        .head{
+            width: 100%;
+            height: 25px;
+            background-color: rgb(50,122,181);
+            color: white;
+        }
+        .bl{
+            color:rgb(50,122,181);
+        }
+    </style>
+    <link rel="stylesheet" href="lib/bootstrap.min.css">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="lib/bootstrap.js"></script>
+    <script src="js/vue2.min.js"></script>
+</head>
+<body>
+    <div id="box">
+        <header>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">周考</a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </header>
+        <article>
+            <aside>
+                <div class="btn-group" data-toggle="buttons">
+                    <ul  >
+                        <li v-for="(value,index) in msg" :key="index"> <button type="button" class="btn btn-default btn-lg" @click="btn(index)" :class="{[index]:'btn-primary'}[flag]">{{value.title}}</button></li>
+                        <!--<li> <button type="button" class="btn btn-default btn-lg">菜单1</button></li>-->
+                        <!--<li> <button type="button" class="btn btn-default btn-lg">菜单2</button></li>-->
+                        <!--<li> <button type="button" class="btn btn-default btn-lg">菜单3</button></li>-->
+                        <!--<li> <button type="button" class="btn btn-default btn-lg">菜单4</button></li>-->
+                    </ul>
+                </div>
+            </aside>
+            <section>
+                <div>
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header" v-for="(value,index) in msg" :key="index" v-if="index==flag">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="  navbar-brand " style="color:rgb(50,122,181)" href="#">周考/{{value.title}}</a>
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            </div><!-- /.navbar-collapse -->
+                        </div><!-- /.container-fluid -->
+                    </nav>
+                </div>
+
+                <div class="text">
+                    <div class="head">
+                        <span>首页</span>
+                    </div>
+                    <span v-for="(value,index) in msg" :key="index" v-if="index==flag"><h3>&nbsp;&nbsp;{{value.article}}</h3></span>
+                </div>
+
+            </section>
+        </article>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#box",
+        data:{
+            msg:[
+                {title:"首页",article:"我是首页内容"},
+                {title:"菜单1",article:"我是菜单1内容"},
+                {title:"菜单2",article:"我是菜单2内容"},
+                {title:"菜单3",article:"我是菜单3内容"},
+                {title:"菜单4",article:"我是菜单4内容"},
+                ],
+            flag: 0,
+        },
+        methods:{
+            btn: function(index) {
+                this.flag = index;
+            }
+        }
+    })
+</script>
